@@ -1,0 +1,44 @@
+{
+  "signals": [
+    {
+      "raw": "MU VS BARCA - barca win",
+      "home": "MU",
+      "away": "BARCA",
+      "pick": "barca",
+      "market_type": "winner_3way"
+    },
+    {
+      "raw": "ARSENAL VS MAN CITY - arsenal win",
+      "home": "ARSENAL",
+      "away": "MAN CITY",
+      "pick": "arsenal",
+      "market_type": "winner_3way"
+    }
+  ],
+  "plans": [
+    {
+      "home": "MU",
+      "away": "BARCA",
+      "pick": "barca",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 20.0,
+      "max_spread_cents": 3,
+      "status": "UNRESOLVED",
+      "reason": "Auto-resolve tidak menemukan match dengan confidence cukup",
+      "market_slug": null,
+      "token_id": null
+    },
+    {
+      "home": "ARSENAL",
+      "away": "MAN CITY",
+      "pick": "arsenal",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 20.0,
+      "max_spread_cents": 3,
+      "status": "UNRESOLVED",
+      "reason": "Auto-resolve tidak menemukan match dengan confidence cukup",
+      "market_slug": null,
+      "token_id": null
+    }
+  ]
+}

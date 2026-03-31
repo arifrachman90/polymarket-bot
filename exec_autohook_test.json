@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "created_at": "2026-03-31T03:43:02.233131+00:00",
+  "source": "telegram",
+  "status": "UNRESOLVED",
+  "signals": [
+    {
+      "chat_text": "YES PSG 10",
+      "side": "YES",
+      "team_hint": "PSG",
+      "stake_usd": 10.0
+    }
+  ],
+  "plans": [
+    {
+      "home": "PSG",
+      "away": "Toulouse",
+      "pick": "PSG",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 10.0,
+      "max_spread_cents": 3,
+      "status": "UNRESOLVED",
+      "reason": "Market belum ketemu; Auto-resolve tidak menemukan match dengan confidence cukup",
+      "market_slug": null,
+      "token_id": null,
+      "max_slippage_pct": 2.0,
+      "idempotency_key": null
+    }
+  ]
+}

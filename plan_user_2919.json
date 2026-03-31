@@ -1,0 +1,44 @@
+{
+  "signals": [
+    {
+      "raw": "PSG vs TOULOUSE | pick: PSG",
+      "home": "PSG",
+      "away": "TOULOUSE",
+      "pick": "PSG",
+      "market_type": "winner_3way"
+    },
+    {
+      "raw": "RC Strasbourg Alsace vs OGC Nice | pick: RC Strasbourg Alsace",
+      "home": "RC Strasbourg Alsace",
+      "away": "OGC Nice",
+      "pick": "RC Strasbourg Alsace",
+      "market_type": "winner_3way"
+    }
+  ],
+  "plans": [
+    {
+      "home": "PSG",
+      "away": "TOULOUSE",
+      "pick": "PSG",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 1.0,
+      "max_spread_cents": 3,
+      "status": "READY_DRY_RUN",
+      "reason": "Siap dikirim ke executor (masih dry-run); Live resolve sukses (ligue-1)",
+      "market_slug": "fl1-psg-tou-2026-04-03-halftime-result-away",
+      "token_id": "88921164870881666493738922738077029336261728698190715435295395952574065623770"
+    },
+    {
+      "home": "RC Strasbourg Alsace",
+      "away": "OGC Nice",
+      "pick": "RC Strasbourg Alsace",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 1.0,
+      "max_spread_cents": 3,
+      "status": "READY_DRY_RUN",
+      "reason": "Siap dikirim ke executor (masih dry-run); Live resolve sukses (ligue-1)",
+      "market_slug": "fl1-str-ogc-2026-04-04-halftime-result-away",
+      "token_id": "71162213135485948733515808474593067301425759142509458722777483688443288771786"
+    }
+  ]
+}
