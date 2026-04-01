@@ -1,0 +1,63 @@
+{
+  "signals": [
+    {
+      "raw": "MU vs BARCA | pick: BARCA",
+      "home": "MU",
+      "away": "BARCA",
+      "pick": "BARCA",
+      "market_type": "winner_3way"
+    },
+    {
+      "raw": "ARSENAL VS MAN CITY - arsenal win",
+      "home": "ARSENAL",
+      "away": "MAN CITY",
+      "pick": "arsenal",
+      "market_type": "winner_3way"
+    },
+    {
+      "raw": "PSG vs TOULOUSE | pick: PSG",
+      "home": "PSG",
+      "away": "TOULOUSE",
+      "pick": "PSG",
+      "market_type": "winner_3way"
+    }
+  ],
+  "plans": [
+    {
+      "home": "MU",
+      "away": "BARCA",
+      "pick": "BARCA",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 20.0,
+      "max_spread_cents": 3,
+      "status": "UNRESOLVED",
+      "reason": "Market belum ketemu di catalog lokal",
+      "market_slug": null,
+      "token_id": null
+    },
+    {
+      "home": "ARSENAL",
+      "away": "MAN CITY",
+      "pick": "arsenal",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 20.0,
+      "max_spread_cents": 3,
+      "status": "READY_DRY_RUN",
+      "reason": "Siap dikirim ke executor (masih dry-run)",
+      "market_slug": "sports/premier-league/games/arsenal-vs-manchester-city",
+      "token_id": "TOKEN_ID_HOME"
+    },
+    {
+      "home": "PSG",
+      "away": "TOULOUSE",
+      "pick": "PSG",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 20.0,
+      "max_spread_cents": 3,
+      "status": "READY_DRY_RUN",
+      "reason": "Siap dikirim ke executor (masih dry-run)",
+      "market_slug": "sports/ligue-1/games/paris-saint-germain-vs-toulouse",
+      "token_id": "TOKEN_ID_HOME"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Contoh signal (satu baris satu pick)
+MU vs BARCA | pick: BARCA
+ARSENAL VS MAN CITY - arsenal win
+PSG vs TOULOUSE | pick: PSG

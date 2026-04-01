@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bob Polymarket Live Board</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08111f;
+      --panel: rgba(10, 16, 31, 0.72);
+      --panel-2: rgba(14, 22, 41, 0.82);
+      --line: rgba(255,255,255,0.10);
+      --text: #eef2ff;
+      --muted: #a8b3cf;
+      --cyan: #7dd3fc;
+      --green: #86efac;
+      --red: #fca5a5;
+      --gold: #fcd34d;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        linear-gradient(rgba(3,8,20,.58), rgba(3,8,20,.82)),
+        url('https://images2.alphacoders.com/744/thumb-1920-744834.png') center/cover fixed no-repeat,
+        var(--bg);
+      min-height: 100vh;
+    }
+    .overlay {
+      background: radial-gradient(circle at top right, rgba(125,211,252,.10), transparent 26%),
+                  radial-gradient(circle at bottom left, rgba(252,211,77,.08), transparent 24%);
+      min-height: 100vh;
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 18px 56px;
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      background: var(--panel);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero {
+      padding: 24px;
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: auto -80px -80px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(125,211,252,.14), transparent 65%);
+      pointer-events: none;
+    }
+    .top {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.65rem, 2.3vw, 2.35rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      margin: 10px 0 0;
+      max-width: 720px;
+      color: #d5def4;
+      line-height: 1.55;
+    }
+    .badges { margin-top: 14px; display:flex; flex-wrap:wrap; gap:10px; }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(17, 26, 51, .74);
+      border: 1px solid rgba(91, 120, 184, .35);
+      color: #cdd9ff;
+      font-size:.93rem;
+    }
+    .hero-side {
+      min-width: 240px;
+      display:grid;
+      gap:10px;
+    }
+    .mini {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+    .mini .label, .stat .label, .section .meta, .table-note {
+      color: var(--muted);
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .mini .value {
+      margin-top: 8px;
+      font-weight: 650;
+      font-size: 1.02rem;
+      word-break: break-word;
+    }
+    .stats {
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 12px;
+      padding: 0 24px 24px;
+    }
+    .stat {
+      background: var(--panel-2);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .stat .value {
+      margin-top: 8px;
+      font-size: 1.32rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .layout {
+      display:grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap: 16px;
+    }
+    @media (max-width: 940px) { .layout { grid-template-columns: 1fr; } }
+    .section { padding: 18px 18px 8px; }
+    .section h2 {
+      margin: 0 0 6px;
+      font-size: 1.12rem;
+      letter-spacing: -0.01em;
+    }
+    .section .meta { margin-bottom: 12px; }
+    .table-wrap { overflow:auto; }
+    table { width:100%; border-collapse: collapse; }
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align:left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    th {
+      color: var(--muted);
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      position: sticky;
+      top: 0;
+      background: rgba(11, 16, 32, .92);
+      backdrop-filter: blur(8px);
+    }
+    td.market-cell {
+      white-space: normal;
+      min-width: 260px;
+    }
+    .market-title { font-weight: 650; line-height: 1.35; }
+    .market-sub, .small {
+      display:block;
+      margin-top: 5px;
+      font-size: .86rem;
+      color: #aeb8d2;
+      line-height: 1.4;
+    }
+    .unit {
+      display:block;
+      margin-top: 3px;
+      font-size: .77rem;
+      color: #8ea2c4;
+    }
+    .profit { color: var(--green); }
+    .loss { color: var(--red); }
+    .neutral { color: var(--text); }
+    .yes {
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+    .no {
+      color: var(--red);
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+    .activity-list {
+      display:grid;
+      gap: 10px;
+      padding-bottom: 10px;
+    }
+    .activity-item {
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+    }
+    .activity-top {
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .activity-title { font-weight: 650; line-height: 1.35; }
+    .activity-time { color: var(--muted); font-size: .84rem; white-space: nowrap; }
+    .activity-meta { margin-top: 8px; color: #d6deef; font-size: .92rem; }
+    .activity-links { margin-top: 8px; font-size: .88rem; }
+    .activity-links a { color: var(--cyan); text-decoration: none; }
+    .muted { color: var(--muted); }
+    .err {
+      color: var(--red);
+      white-space: pre-wrap;
+      padding: 16px;
+      background: rgba(252,165,165,.08);
+      border: 1px solid rgba(252,165,165,.18);
+      border-radius: 16px;
+    }
+    code {
+      background: rgba(255,255,255,.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: .88em;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <div class="wrap">
+    <div class="card">
+      <div class="hero">
+        <div class="top">
+          <div>
+            <h1>Bob Polymarket live board</h1>
+            <p class="sub">Live-ish dashboard for Bob’s Polymarket account. Data comes directly from the Polymarket Data API and refreshes every <strong>10 seconds</strong>. This board now separates <strong>spent dollars</strong>, <strong>shares</strong>, and <strong>current value</strong> so the numbers don’t look misleading.</p>
+            <div class="badges">
+              <span class="pill">OpenClaw</span>
+              <span class="pill">here.now</span>
+              <span class="pill">Polymarket Data API</span>
+              <span class="pill">Auto refresh · 10s</span>
+            </div>
+          </div>
+          <div class="hero-side">
+            <div class="mini"><div class="label">Signer</div><div class="value">0x31cf...7E26</div></div>
+            <div class="mini"><div class="label">Trading proxy / funder</div><div class="value">0x845c...172a</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="label">Live status</div><div class="value" id="status">Loading…</div></div>
+        <div class="stat"><div class="label">Open positions</div><div class="value" id="positionsCount">-</div></div>
+        <div class="stat"><div class="label">Current portfolio value</div><div class="value" id="portfolioValue">-</div></div>
+        <div class="stat"><div class="label">Portfolio PnL</div><div class="value" id="portfolioPnl">-</div></div>
+        <div class="stat"><div class="label">Last refresh</div><div class="value" id="refreshed">-</div></div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="card">
+        <div class="section">
+          <h2>Open positions</h2>
+          <div class="meta">Clear separation: <strong>Spent ($)</strong> vs <strong>Shares</strong> vs <strong>Current value ($)</strong></div>
+          <div style="margin:10px 0 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <label style="display:inline-flex; align-items:center; gap:8px; color:#d5def4; font-size:.94rem; cursor:pointer;">
+              <input id="showDustToggle" type="checkbox" style="accent-color:#7dd3fc; width:16px; height:16px;" />
+              Show tiny / dust positions too
+            </label>
+            <span class="small">Default: hide tiny leftover positions so the board stays clean.</span>
+          </div>
+          <div class="table-wrap" id="positionsWrap"><p class="muted">Loading positions…</p></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section">
+          <h2>Recent activity</h2>
+          <div class="meta">Latest fills / actions from Bob’s trading proxy</div>
+          <div id="activityWrap"><p class="muted">Loading activity…</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const proxyWallet = '0x845c19130a007c2e0f5958a9a78ae4113ab7172a';
+const positionsUrl = `https://data-api.polymarket.com/positions?user=${proxyWallet}&sizeThreshold=0&limit=20`;
+const activityUrl = `https://data-api.polymarket.com/activity?user=${proxyWallet}&limit=20`;
+const DUST_MIN_VALUE = 0.05;
+const DUST_MIN_SHARES = 0.01;
+
+const fmt = (n, d=4) => Number(n ?? 0).toLocaleString(undefined,{maximumFractionDigits:d});
+const usd = (n, d=4) => `$${Number(n ?? 0).toLocaleString(undefined,{maximumFractionDigits:d})}`;
+const timeFmt = (ts) => {
+  if (!ts) return '-';
+  const ms = String(ts).length > 10 ? Number(ts) : Number(ts) * 1000;
+  return new Date(ms).toLocaleString();
+};
+function esc(s){ return String(s ?? '').replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function clsNum(n){ const v = Number(n || 0); return v > 0 ? 'profit' : v < 0 ? 'loss' : 'neutral'; }
+function outcomeClass(text){ return /yes/i.test(text) ? 'yes' : /no/i.test(text) ? 'no' : 'neutral'; }
+function isDustPosition(p) {
+  const currentValue = Number(p.currentValue ?? ((p.curPrice ?? 0) * (p.size ?? 0)));
+  const shares = Number(p.size ?? 0);
+  return currentValue < DUST_MIN_VALUE || shares < DUST_MIN_SHARES;
+}
+
+async function loadBoard(){
+  const statusEl = document.getElementById('status');
+  statusEl.textContent = 'Refreshing…';
+  try {
+    const [pRes, aRes] = await Promise.all([fetch(positionsUrl), fetch(activityUrl)]);
+    if (!pRes.ok) throw new Error(`positions ${pRes.status}`);
+    if (!aRes.ok) throw new Error(`activity ${aRes.status}`);
+    const positions = await pRes.json();
+    const activity = await aRes.json();
+    const showDust = document.getElementById('showDustToggle')?.checked;
+    const visiblePositions = showDust ? positions : positions.filter(p => !isDustPosition(p));
+
+    const portfolioValue = visiblePositions.reduce((sum, p) => sum + Number(p.currentValue ?? ((p.curPrice ?? 0) * (p.size ?? 0))), 0);
+    const portfolioPnl = visiblePositions.reduce((sum, p) => sum + Number(p.cashPnl ?? 0), 0);
+
+    document.getElementById('positionsCount').textContent = String(visiblePositions.length);
+    document.getElementById('portfolioValue').textContent = usd(portfolioValue, 6);
+    const pnlEl = document.getElementById('portfolioPnl');
+    pnlEl.className = `value ${clsNum(portfolioPnl)}`;
+    pnlEl.textContent = usd(portfolioPnl, 6);
+    document.getElementById('refreshed').textContent = new Date().toLocaleString();
+    statusEl.textContent = `Live · ${positions.length} position(s) · ${activity.length} activity item(s)`;
+
+    const positionsWrap = document.getElementById('positionsWrap');
+    if (!visiblePositions.length) {
+      positionsWrap.innerHTML = '<p class="muted">No open positions found in the current filter.</p>';
+    } else {
+      positionsWrap.innerHTML = `<table>
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Outcome</th>
+            <th>Spent</th>
+            <th>Shares</th>
+            <th>Avg price</th>
+            <th>Now</th>
+            <th>Current value</th>
+            <th>PnL</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${visiblePositions.map(p => {
+            const outcome = p.outcome || (p.asset === 'Yes' ? 'Yes' : p.outcomeIndex === 0 ? 'Yes' : p.outcomeIndex === 1 ? 'No' : '-');
+            const spent = Number(p.initialValue ?? ((p.avgPrice ?? 0) * (p.size ?? 0)));
+            const currentValue = Number(p.currentValue ?? ((p.curPrice ?? 0) * (p.size ?? 0)));
+            const pnl = Number(p.cashPnl ?? 0);
+            return `<tr>
+              <td class="market-cell">
+                <div class="market-title">${esc(p.title)}</div>
+                <span class="market-sub">${esc(p.slug)}</span>
+              </td>
+              <td><span class="${outcomeClass(outcome)}">${esc(outcome)}</span></td>
+              <td>${usd(spent,6)}<span class="unit">USDC used</span></td>
+              <td>${fmt(p.size,6)}<span class="unit">shares</span></td>
+              <td>${fmt(p.avgPrice,6)}<span class="unit">price / share</span></td>
+              <td>${fmt(p.curPrice,6)}<span class="unit">current price</span></td>
+              <td>${usd(currentValue,6)}<span class="unit">shares × now</span></td>
+              <td><span class="${clsNum(pnl)}">${usd(pnl,6)}</span><span class="unit ${clsNum(p.percentPnl)}">${fmt(p.percentPnl,2)}%</span></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+    }
+
+    const activityWrap = document.getElementById('activityWrap');
+    if (!activity.length) {
+      activityWrap.innerHTML = '<p class="muted">No recent activity found.</p>';
+    } else {
+      activityWrap.innerHTML = `<div class="activity-list">
+        ${activity.slice(0,12).map(a => `
+          <div class="activity-item">
+            <div class="activity-top">
+              <div class="activity-title">${esc(a.title || 'Untitled market')}</div>
+              <div class="activity-time">${esc(timeFmt(a.timestamp))}</div>
+            </div>
+            <div class="activity-meta">
+              <strong>${esc(a.type || 'activity')}</strong>
+              · <span class="${outcomeClass(a.outcome || a.side || '')}">${esc(a.side || '-')} ${esc(a.outcome || '')}</span>
+              · ${usd(a.usdcSize,6)}
+            </div>
+            <div class="small">${esc(a.slug || '')}</div>
+            <div class="activity-links">
+              ${a.transactionHash ? `<a href="https://polygonscan.com/tx/${a.transactionHash}" target="_blank" rel="noreferrer">View tx</a>` : '<span class="muted">No tx hash</span>'}
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+    }
+  } catch (err) {
+    statusEl.textContent = 'Error';
+    document.getElementById('positionsWrap').innerHTML = `<div class="err">${esc(err.message || err)}</div>`;
+    document.getElementById('activityWrap').innerHTML = `<div class="err">${esc(err.message || err)}</div>`;
+  }
+}
+loadBoard();
+document.getElementById('showDustToggle')?.addEventListener('change', loadBoard);
+setInterval(loadBoard, 10000);
+</script>
+</body>
+</html>

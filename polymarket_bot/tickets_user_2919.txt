@@ -1,0 +1,21 @@
+=== MANUAL EXECUTION TICKETS ===
+1) PSG vs TOULOUSE
+   PICK      : PSG
+   STAKE     : $1.00
+   ACTION    : BUY_OUTCOME
+   STATUS    : READY_DRY_RUN
+   MARKET    : fl1-psg-tou-2026-04-03-halftime-result-away
+   LINK      : https://polymarket.com/event/fl1-psg-tou-2026-04-03-halftime-result-away
+   TOKEN_ID  : 88921164870881666493738922738077029336261728698190715435295395952574065623770
+   SLIPPAGE  : max 2¢
+   NOTE      : Siap dikirim ke executor (masih dry-run); Live resolve sukses (ligue-1)
+2) RC Strasbourg Alsace vs OGC Nice
+   PICK      : RC Strasbourg Alsace
+   STAKE     : $1.00
+   ACTION    : BUY_OUTCOME
+   STATUS    : READY_DRY_RUN
+   MARKET    : fl1-str-ogc-2026-04-04-halftime-result-away
+   LINK      : https://polymarket.com/event/fl1-str-ogc-2026-04-04-halftime-result-away
+   TOKEN_ID  : 71162213135485948733515808474593067301425759142509458722777483688443288771786
+   SLIPPAGE  : max 2¢
+   NOTE      : Siap dikirim ke executor (masih dry-run); Live resolve sukses (ligue-1)

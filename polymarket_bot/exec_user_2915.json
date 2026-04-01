@@ -1,0 +1,22 @@
+[
+  {
+    "index": 1,
+    "market": "fl1-psg-tou-2026-04-03-halftime-result-away",
+    "token_id": "88921164870881666493738922738077029336261728698190715435295395952574065623770",
+    "price": 0,
+    "size": 0,
+    "status": "ERROR",
+    "note": "PolyApiException[status_code=403, error_message={'error': 'Trading restricted in your region, please refer to available regions - https://docs.polymarket.com/developers/CLOB/geoblock'}]",
+    "order_id": null
+  },
+  {
+    "index": 2,
+    "market": "fl1-str-ogc-2026-04-04-halftime-result-away",
+    "token_id": "71162213135485948733515808474593067301425759142509458722777483688443288771786",
+    "price": 0,
+    "size": 0,
+    "status": "ERROR",
+    "note": "PolyApiException[status_code=403, error_message={'error': 'Trading restricted in your region, please refer to available regions - https://docs.polymarket.com/developers/CLOB/geoblock'}]",
+    "order_id": null
+  }
+]

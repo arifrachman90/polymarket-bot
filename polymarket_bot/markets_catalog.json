@@ -1,0 +1,28 @@
+{
+  "matches": [
+    {
+      "market_slug": "sports/ligue-1/games/paris-saint-germain-vs-toulouse",
+      "aliases": {
+        "home": ["PSG", "Paris Saint-Germain", "Paris Saint Germain"],
+        "away": ["Toulouse", "TOU"]
+      },
+      "outcome_map": {
+        "home": "TOKEN_ID_HOME",
+        "draw": "TOKEN_ID_DRAW",
+        "away": "TOKEN_ID_AWAY"
+      }
+    },
+    {
+      "market_slug": "sports/premier-league/games/arsenal-vs-manchester-city",
+      "aliases": {
+        "home": ["Arsenal", "ARS"],
+        "away": ["Manchester City", "Man City", "MCI"]
+      },
+      "outcome_map": {
+        "home": "TOKEN_ID_HOME",
+        "draw": "TOKEN_ID_DRAW",
+        "away": "TOKEN_ID_AWAY"
+      }
+    }
+  ]
+}

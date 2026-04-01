@@ -1,0 +1,25 @@
+{
+  "signals": [
+    {
+      "raw": "PSG vs TOULOUSE | pick: PSG",
+      "home": "PSG",
+      "away": "TOULOUSE",
+      "pick": "PSG",
+      "market_type": "winner_3way"
+    }
+  ],
+  "plans": [
+    {
+      "home": "PSG",
+      "away": "TOULOUSE",
+      "pick": "PSG",
+      "side": "BUY_OUTCOME",
+      "stake_usd": 20.0,
+      "max_spread_cents": 3,
+      "status": "UNRESOLVED",
+      "reason": "Auto-resolve tidak menemukan match dengan confidence cukup",
+      "market_slug": null,
+      "token_id": null
+    }
+  ]
+}
